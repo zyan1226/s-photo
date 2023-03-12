@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css';
-import { Input, Image, Space, Select, FloatButton, Avatar, Button, Modal, Tooltip, Descriptions, Radio, ConfigProvider } from 'antd';
+import { Skeleton, Input, Image, Space, Select, FloatButton, Avatar, Button, Modal, Tooltip, Descriptions, Radio, ConfigProvider } from 'antd';
 import { ArrowLeftOutlined, DownloadOutlined, CameraOutlined, InfoOutlined, SearchOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
@@ -70,7 +70,7 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    //this.getImgDataByAPI()
+    this.getImgDataByAPI()
   }
 
   async getImgDataByAPI() {
@@ -132,68 +132,76 @@ export default class App extends Component {
               onClick={(v) => this.searchHandler(v)}
               loading={!this.state.searchSuccess} />
           </Space>
-          <div id='img-body'>
-            <Image.PreviewGroup>
-              {
-                this.state.imgData.map(v => {
-                  return (
-                    <div
-                      className='img-box-items'
-                      key={v.id}>
-                      <Image
-                        height={300}
-                        src={v.urls.small_s3}
-                        preview={{
-                          src: v.urls.regular,
-                          mask:
-                            <div style={{ textAlign: 'center' }}>
-                              <p>点击预览</p>
-                              <p>{v.alt_description}</p>
-                            </div>
-                        }} />
+          <Skeleton
+            style={{ marginTop: '20px' }}
+            active={true}
+            loading={!this.state.apiSuccess}>
+            <div id='img-body'>
+              <Image.PreviewGroup>
+                {
+                  this.state.imgData.map(v => {
+                    return (
                       <div
-                        className='img-bottom-box-items'>
+                        className='img-box-items'
+                        key={v.id}>
+                        <Image
+                          height={300}
+                          src={v.urls.small_s3}
+                          preview={{
+                            src: v.urls.regular,
+                            mask:
+                              <div style={{ textAlign: 'center' }}>
+                                <p>点击预览</p>
+                                <p>{v.alt_description}</p>
+                              </div>
+                          }} />
                         <div
-                          className='img-user-info'>
-                          <Avatar
-                            size={32}
-                            src={v.user.profile_image.small} />
-                          <span
-                            style={{ marginTop: '2px' }}>
-                            {v.user.name}
-                          </span>
-                        </div>
-                        <div
-                          className='img-operating-space'>
-                          <Space
-                            size='middle'>
-                            <Tooltip
-                              title="查看 EXIF 信息">
-                              <Button
-                                onClick={() => this.showExifModalHandler(v)}
-                                icon={<CameraOutlined />} />
-                            </Tooltip >
-                            <Tooltip
-                              title={'下载原图: ' + v.width + '*' + v.height}>
-                              <Button
-                                onClick={() => this.downloadImgHandler(v)}
-                                icon={<DownloadOutlined />} />
-                            </Tooltip >
-                            <Tooltip
-                              title="更多信息">
-                              <Button
-                                onClick={() => this.showImgInfoHandler(v)}
-                                icon={<InfoOutlined />} />
-                            </Tooltip >
-                          </Space>
+                          className='img-bottom-box-items'>
+                          <div
+                            className='img-user-info'>
+                            <Avatar
+                              size={32}
+                              src={v.user.profile_image.small} />
+                            <span
+                              style={{ marginTop: '2px' }}>
+                              {v.user.name}
+                            </span>
+                          </div>
+                          <div
+                            className='img-operating-space'>
+                            <Space
+                              size='middle'>
+                              <Tooltip
+                                title="查看 EXIF 信息">
+                                <Button
+                                  onClick={() => this.showExifModalHandler(v)}
+                                  icon={<CameraOutlined />} />
+                              </Tooltip >
+                              <Tooltip
+                                title={'下载原图: ' + v.width + '*' + v.height}>
+                                <Button
+                                  onClick={() => this.downloadImgHandler(v)}
+                                  icon={<DownloadOutlined />} />
+                              </Tooltip >
+                              <Tooltip
+                                title="更多信息">
+                                <Button
+                                  onClick={() => this.showImgInfoHandler(v)}
+                                  icon={<InfoOutlined />} />
+                              </Tooltip >
+                            </Space>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )
-                })
-              }
-            </Image.PreviewGroup>
-          </div>
+                    )
+                  })
+                }
+              </Image.PreviewGroup>
+            </div>
+            <div id='declaration-box'>
+              图片资源来源于<a href='https://unsplash.com/'>Unsplash</a>
+            </div>
+          </Skeleton>
           <Modal
             title="EXIF 信息"
             width={700}
@@ -261,11 +269,8 @@ export default class App extends Component {
               <Descriptions.Item label="ISO">{currentExif.iso ? currentExif.iso : '/'}</Descriptions.Item>
             </Descriptions>
           </Modal>
-          <div id='declaration-box'>
-            图片资源来源于<a href='https://unsplash.com/'>Unsplash</a>
-          </div>
         </ConfigProvider>
-      </div>
+      </div >
     );
   }
 }
