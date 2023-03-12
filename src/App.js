@@ -105,6 +105,9 @@ export default class App extends Component {
             tooltip={<div>返回上一次</div>}
             icon={<ArrowLeftOutlined />} />
           <Space>
+            <a href="https://about.zyan1226.cn">
+              <Avatar size='large' src="https://s2.loli.net/2023/03/12/mqKM6js5oteDH1N.png" shape='square' />
+            </a>
             <Input
               onChange={(e) => this.setState({ query: e.target.value })}
               placeholder='关键字'
