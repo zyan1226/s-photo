@@ -149,7 +149,7 @@ export default class App extends Component {
                         key={v.id}>
                         <Image
                           height={300}
-                          src={v.urls.small_s3}
+                          src={v.urls.small}
                           preview={{
                             src: v.urls.regular,
                             mask:
