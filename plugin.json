@@ -1,0 +1,19 @@
+{
+    "main": "/build/index.html",
+    "logo": "/build/logo512.png",
+    "features": [
+        {
+            "code": "s-photo",
+            "explain": "s-photo",
+            "cmds": [
+                "s"
+            ]
+        }
+    ],
+    "pluginSetting": {
+        "height": 650
+    },
+    "development": {
+        "main": "http://127.0.0.1:3000"
+    }
+}
