@@ -96,7 +96,7 @@ export default class App extends Component {
         <ConfigProvider
           theme={{
             token: {
-              colorPrimary: '#377DF6',
+              colorPrimary: '#2B2B2B',
             },
           }}
         >
